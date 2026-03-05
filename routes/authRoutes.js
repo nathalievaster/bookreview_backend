@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const User = require("../models/User")
 
+const { authMiddleware } = require("../middleware/authMiddleware")
+
 // Registrera användare
 router.post("/register", async (req, res) => {
     try {
@@ -53,8 +55,25 @@ router.post("/login", async (req, res) => {
             { expiresIn: "1d" }
         )
 
-        res.json({ token })
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                role: user.role
+            }
+        })
 
+    } catch (err) {
+        res.status(500).json({ message: "Server error" })
+    }
+})
+
+// Validera token
+router.get("/validate", authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select("-password")
+        res.json(user)
     } catch (err) {
         res.status(500).json({ message: "Server error" })
     }
