@@ -31,10 +31,11 @@ router.get("/:bookId", async (req, res) => {
 // Skapa en review
 router.post("/", authMiddleware, async (req, res) => {
     try {
-        const { bookId, reviewText, rating } = req.body
+        const { bookId, bookTitle, reviewText, rating } = req.body
         
         const review = new Review({
             bookId,
+            bookTitle,
             reviewText,
             rating,
             user: req.user.id
