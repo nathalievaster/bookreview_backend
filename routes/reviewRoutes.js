@@ -3,6 +3,20 @@ const router = express.Router()
 const Review = require("../models/Review")
 const { authMiddleware } = require("../middleware/authMiddleware")
 
+// Hämta alla ens reviews
+router.get("/myreviews", authMiddleware, async (req, res) => {
+  try {
+
+    const reviews = await Review.find({ user: req.user.id })
+      .sort({ createdAt: -1 })
+
+    res.json(reviews)
+
+  } catch (err) {
+    res.status(500).json({ message: "Server error" })
+  }
+})
+
 // Hämta reviews för en bok
 router.get("/:bookId", async (req, res) => {
     try {
