@@ -17,6 +17,9 @@ app.use("/api/readinglist", require("./routes/ReadingListRoutes"))
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected")
-    app.listen(5000, () => console.log("Server running on port 5000"))
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
   })
-  .catch(err => console.log(err))
+  .catch(err => {
+    console.log("MongoDB connection error:", err)
+    process.exit(1)
+  })
