@@ -9,6 +9,7 @@ REST API för Boktok, byggd med Node.js och Express. Hanterar användare, recens
 - **JWT** – autentisering med tokenhantering
 - **bcrypt** – lösenordskryptering
 - **dotenv** – hantering av miljövariabler
+- **yup** - 
 
 ## Endpoints
 

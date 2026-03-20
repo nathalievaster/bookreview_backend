@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const { string } = require("yup")
 
 const reviewSchema = new mongoose.Schema({
     bookId: {
